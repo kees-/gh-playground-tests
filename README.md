@@ -1,7 +1,8 @@
 # gh-playground-tests
  random internal tests
 
-<style type "text/css">
+<style
+  type "text/css">
   article {
     outline: 1px solid blue;
     border: 2px double green;
