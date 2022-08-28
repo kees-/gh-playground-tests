@@ -22,3 +22,7 @@ jobs:
       - name: Test babashka
         run:
           bb --version
+
+      - name: Test clojure cli (should fail)
+        run:
+          clojure --version
