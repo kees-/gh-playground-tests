@@ -16,7 +16,8 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     defaults:
-      shell: bash
+      run:
+        shell: bash
     env:
       BRANCH: ${{ github.ref_name }}
 
