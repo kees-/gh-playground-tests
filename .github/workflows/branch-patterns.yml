@@ -41,7 +41,7 @@ jobs:
         run: echo ${{ steps.ok.outputs.status }}
 
       - name: Job gatekeeper
-        if: ${{ steps.ok.outputs.status }} == 'FAIL'
+        if: steps.ok.outputs.status == 'FAIL'
         uses: actions/github-script@main
         with:
           script: core.setFailed('Your branch name appears invalid. Please fix')
