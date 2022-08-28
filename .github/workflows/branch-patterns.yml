@@ -36,7 +36,10 @@ jobs:
           else
             echo "::set-output name=status::$(echo FAIL)"
           fi
-      
+
+      - name: ok results
+        run: echo ${{ steps.ok.outputs.status }}
+
       - name: Job gatekeeper
         if: ${{ steps.ok.outputs.status }} = 'FAIL'
         uses: actions/github-script@main
