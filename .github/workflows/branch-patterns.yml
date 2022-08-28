@@ -1,0 +1,48 @@
+name: boom... fail on invalid branch format
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+  # A new branch is created
+  # Should the job be canceled if the new branchname fails regex match?
+  # Methods to do so: https://stackoverflow.com/questions/57903836/
+  create:
+  # If any existing branch except main is pushed and relevant paths have changes
+  push:
+    branches-ignore:
+      - 'main'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run: bash
+    env:
+      BRANCH: ${{ github.ref_name }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Verify branch name format
+        id: ok
+        run: |
+          pat='^([[:alpha:]]*)([[:digit:]]+)([[:alpha:]]*)$'
+          if [[ ${BRANCH%%-*} =~ $pat ]]; then
+            echo "::set-output name=status::$(echo SUB)"
+          elif [[ ${BRANCH#*-} == "main" ]]; then
+            echo "::set-output name=status::$(echo MAIN)"
+          else
+            echo "::set-output name=status::$(echo FAIL)"
+          fi
+      
+      - name: Job gatekeeper
+        if: ${{ steps.ok.outputs.status }} = 'FAIL'
+        uses: actions/github-script@main
+        with:
+          script: core.setFailed('Your branch name appears invalid. Please fix')
+
+      # - name: Branch prefix
+      #   id: var
+      #   run: |
+      #     echo "::set-output name=prefix::$(echo ${BRANCH%%-*})"
