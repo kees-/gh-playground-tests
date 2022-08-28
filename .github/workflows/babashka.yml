@@ -1,0 +1,24 @@
+name: Setup babashka
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Setup babashka
+        uses: DeLaGuardo/setup-clojure@main
+        with:
+          bb: 'latest'
+
+      - name: Test babashka
+        run:
+          bb --version
