@@ -18,7 +18,9 @@ jobs:
       - name: Output branch list
         id: list
         run: |
-          echo "::set-output name=branch-list::$(git branch --list)"
+          list="$(git branch --list)"
+          echo "${list}"
+          echo "::set-output name=branch-list::${list}"
   
   parse-array:
     runs-on: ubuntu-latest
