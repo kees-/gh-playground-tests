@@ -1,0 +1,22 @@
+name: Setup babashka
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Create output
+        id: test
+        run: echo "::set-output name=a::Anthropologie"
+      
+      - name: Check previous output
+        run: echo ${{ steps.test.outputs.a }}
