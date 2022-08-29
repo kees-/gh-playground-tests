@@ -1,4 +1,4 @@
-name: Setup babashka
+name: Outputs syntax
 
 on:
   workflow_dispatch:
@@ -14,6 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
 
+      # Does or does not need an additional $(echo ...) ?
       - name: Create output
         id: test
         run: echo "::set-output name=a::Anthropologie"
