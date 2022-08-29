@@ -17,7 +17,13 @@ jobs:
       # Does or does not need an additional $(echo ...) ?
       - name: Create output
         id: test
-        run: echo "::set-output name=a::Anthropologie"
+        env:
+          B2B: "bay-to-breaker"
+        run: |
+          echo "::set-output name=a::Anthropologie"
+          echo "::set-output name=b::${B2B#*-}"
       
       - name: Check previous output
-        run: echo ${{ steps.test.outputs.a }}
+        run: |
+          echo ${{ steps.test.outputs.a }}
+          echo ${{ steps.test.outputs.b }}
