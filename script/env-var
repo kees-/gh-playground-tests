@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+echo "Global environmental variable: [${GLOBAL}]"
+echo "Local environmental variable: [${LOCAL}]"

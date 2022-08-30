@@ -16,11 +16,11 @@ jobs:
           fetch-depth: 0
       
       - name: Output branch list
+        shell: bash
         id: list
         run: |
-          list="$(git branch --list)"
-          echo "${list}"
-          echo "::set-output name=branch-list::${list}"
+          list=($(git branch --remote))
+          echo "::set-output name=branch-list::${list[@]}"
   
   parse-array:
     runs-on: ubuntu-latest

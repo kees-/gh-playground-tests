@@ -1,0 +1,22 @@
+name: Environmental variables
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    env:
+      GLOBAL: "Hello, I just want to see if running scripts will automatically have access to actions' glocal environment variables!"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Run script
+        env:
+          LOCAL: "bay-to-breaker"
+        run: script/env-var
